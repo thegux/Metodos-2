@@ -10,26 +10,36 @@ import numpy as np
     y_generator is the function to be integrated
 """
 
-def trapezoid_integral(a, b, n, y_generator):
-    #a = 1
-    #b = 3
-    #n = 2
-    #y_generator = lambda x: 1/x
+def trapezoid_integral(**kwargs):
 
-    h = (b-a)/n
+    a = kwargs.get('a', None)
+    b = kwargs.get('b', None)
+    n = kwargs.get('n', 2)
+    y_generator = kwargs.get('y_generator', None)
+
+    x = kwargs.get('x', None)
+    y = kwargs.get('y', None)
+    
+    if y is None:
+        h = (b-a)/n
+        x = np.linspace(a, b, n+1)
+        y = [y_generator(x[i]) for i in range(n+1)]
+        vectors_length = len(x)
         
-    x = np.linspace(a, b, n+1)
-    y = [y_generator(x[i]) for i in range(n+1)]
+        integral_value = y[0]
 
-    interval = x[1] - x[0]
-    vectors_length = len(x)
+        for i in range(2, vectors_length):
+            integral_value += 2*y[i - 1]
+        
+        integral_value += y[vectors_length - 1]
+        integral_value *= h/2
+        return integral_value
     
-    integral_value = y[0]
+    else:
+        sum = 0
+        for i in range(len(x) - 1):
+            sum += ((y[i] + y[i+1])/2 * (x[i+1] - x[i]))
+        return sum
+    
 
-    for i in range(2, vectors_length):
-        integral_value += 2*y[i - 1]
-    
-    integral_value += y[vectors_length - 1]
-    integral_value *= h/2
-    return integral_value
 

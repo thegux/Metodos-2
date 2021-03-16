@@ -7,20 +7,27 @@ import numpy as np
     y_generator is the function to be integrated
 """
 
-def sympsons_integral(a, b, n, y_generator):
+def simpsons_integral(**kwargs):
     #a = 1
     #b = 3
     #n = 2
+    a = kwargs.get('a', None)
+    b = kwargs.get('b', None)
+    n = kwargs.get('n', 2)
+    y_generator = kwargs.get('y_generator', None)
 
-    h = (b-a)/n
+    x = kwargs.get('x', None)
+    y = kwargs.get('y', None)
 
-    x = np.linspace(a, b, n+1)
-    y = [y_generator(x[i]) for i in range(n+1)]
+    if x is None:
+        x = np.linspace(a, b, n+1)
+        y = [y_generator(x[i]) for i in range(n+1)]
 
-    interval = x[1] - x[0]
     vectors_length = len(x)
-
-
+    if a is None:
+        h = x[1] - x[0]
+    else:
+        h= (b-a)/n
     integral_value = y[0]
 
     for i in range(2, vectors_length, 2):
@@ -30,5 +37,5 @@ def sympsons_integral(a, b, n, y_generator):
         integral_value += 2*y[i-1]
     
     integral_value += y[vectors_length - 1]
-    integral_value *= interval/3
+    integral_value *= h/3
     return integral_value
