@@ -1,9 +1,9 @@
-from euler_dr import euler_dr
+from euler_dr import euler_heun
 import matplotlib.pyplot as plt
 
-fun = lambda u, v : 1-v
+fun = lambda u, v : -0.1*(v-10)
 
-[x, y] = euler_dr(0, 0, 0.5, 8, fun)
+[x, y] = euler_heun(0, 100, 0.5, 60, fun)
 
 fig, axs = plt.subplots()
 
