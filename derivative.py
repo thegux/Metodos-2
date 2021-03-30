@@ -32,7 +32,7 @@ def derivative(**kwargs):
         if f is None:
             return (y[a + 1] - y[a - 1])/(x[a + 1] - x[a - 1])
         else: 
-            return (f(a + h) - f(a - h))/(2*h)
+            return (f(a - 2) - 8*f(a - 1) + 8*f(a+1) - f(a+2))/(12*h)
     elif method == 'forward':
         if f is None:
             return (y[a + 1] - y[a])/(x[a + 1] - x[a])

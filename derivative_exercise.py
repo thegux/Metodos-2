@@ -9,17 +9,9 @@ y = [-5.87, -4.23, -2.55, -0.89, 0.67, 2.09, 3.31, 4.31, 5.06, 5.55,  5.78, 5.77
 
 
 velocity = class_derivative(x=x, y=y)
-velocity_np = np.diff(y)/np.diff(x)
-adj_x_velocity = (x[:-1] + x[1:]) / 2
 
 acceleration = class_derivative(x=x, y=velocity)
 acceleration2 = second_derivative(x=x, y=y)
-
-print(acceleration)
-print(acceleration2)
-
-acceleration_np = np.diff(velocity_np)/np.diff(adj_x_velocity)
-adj_x_acceleration = (adj_x_velocity[:-1] + adj_x_velocity[1:]) / 2
 
 
 fig, axs = plt.subplots(3)
